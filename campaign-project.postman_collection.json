@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "21604421-4fe5-48f8-a8c1-6743cf1cc26d",
+		"name": "campaign-project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21709766"
+	},
+	"item": [
+		{
+			"name": "createCampaign",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 300ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the data object\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('object');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							" pm.test(\"Successful POST request\", function () {\r",
+							"        pm.expect(pm.response.code).to.be.oneOf([201, 202, 200]);\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"pm.test(\"ctaUrl can be empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.data.createCampaign.result.ctaUrl).to.be.an('array');\r",
+							"\r",
+							"    responseData.data.createCampaign.result.forEach(function (campaign) {\r",
+							"        pm.expect(campaign.result.ctaUrl).to.be.a('empty').and.to.have.lengthOf.at.least(0, \"ctaUrl can be empty\");\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmbGlnaHQtbG9jYWwtYjJjLmNvbSIsImRhdGEiOnsiZW1haWwiOiJzdXBlcm9wZXJhdG9yQGZsaWdodGxvY2FsLmNvbSIsImRldmljZVV1aWQiOiJPUC1MSlJKUyIsInVzZXJJZCI6IjVmZjQ5NzkwNTZmOTFmNWE2N2M5YjM0MiIsInVzZXJVaWQiOiJPUC1MSlJKUyIsIm5hbWUiOiJmbGlnaHRsb2NhbCBiMmMiLCJjb21wYW55TmFtZSI6IkZMSUdIVC1MT0NBTCIsInVzZXJUeXBlIjoiX09QRVJBVE9SXyIsInVzZXJSb2xlIjoiX1NVUEVST1BFUkFUT1JfIn0sImlhdCI6MTY5MDcwMjAwMiwiZXhwIjoxNjk4NDc4MDAyfQ.YPKOM01tRswmGJfl3pEOK2ZJavnCw8qhsSnANgbSQfT8KBi1YcWt2hHlvb8p0lUoL6NRo0f6UIBBQK1NI08EBFUDNZrb2E6Hv9btB8UMehGd5nDBwRMRBimrgPD1yLOP7BmZI1cyotNkd4yhQsrmr_yPKnYwRsGnInzZYXZzAxcpz9MVI-PVLO3gomDLFv5cutKbR-kDMsWJ53SYX8XFTH88fouNv2vtnHpc2dknAknGOjPElkY2SygCvF7qu1UhRU_cmKMrRVrP7aCJ1vuDHpnc8Gu7gCukmO_PmslCEMUo1FKB-H34zY2iqIRF015E4TqejjewC8Dcnz0VFcsuLnnqpuSK9oyM6AJNBugzScsykaH2fdt9onEJkNC0tPyoVFzJkdHZbdAKVwBsdrKs4-R1Im-17a9klll9XJYHDzV7qKDlBkKtGu1UOpc26KztqaJAhmLlr-B0ci-hdi9S763wa_3kqg4B5xv9xmAdmXjSftZVc3_tBev3rq3M_RCFF3sCbXGmdUJTWpSTeK-gt33f5U1sAw8q8T2NOlzO9sIvZ7rA0RMiqSuskp3L_bnzGIYRDo8PgabMCYUrzpQsE8DTdVp0hSrjTbQOy6T8rfxu4NVx7sM-l0DqYwoQYiA1fk6xH7I8XRZc7A2D92RwKnWFg0IpDmMx2HjpoGS7xlk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation{\r\n\tcreateCampaign(campaign: {\r\n\t\t platformType: _B2C_\r\n\t\t serviceType: _FLIGHT_\r\n        \r\n         slug:\"Unique\"\r\n\t\t name: \"Campaign for brac Bank-1\"\r\n\t\t displayName: \"Checking campaign\"\r\n         description:\"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\"\r\n         ctaUrl:\"https://flight-local-dev-public.s3.ap-southeast-1.amazonaws.com/61a36eae-e2f9-4bc1-8d09-9e19cccddcaa.jpg\"\r\n         ctaText:\"https://flight-local-dev-public.s3.ap-southeast-1.amazonaws.com/61a36eae-e2f9-4bc1-8d09-9e19cccddcaa.jpg\"\r\n\t\t\r\n\t\t image: {\r\n             type:\"use to create campaign\"\r\n\t\t\t url: \"https://flight-local-dev-public.s3.ap-southeast-1.amazonaws.com/6aad205d-3a77-4361-bd13-e9a2a47a287c.png\",\r\n            signedUrl: \"https://flight-local-dev-public.s3.ap-southeast-1.amazonaws.com/6aad205d-3a77-4361-bd13-e9a2a47a287c.png\",\r\n\t\t\t name: \"test\"\r\n\t\t\t}\r\n\t\t displayImage: {\r\n\t\t\turl: \"https://flight-local-dev-public.s3.ap-southeast-1.amazonaws.com/61a36eae-e2f9-4bc1-8d09-9e19cccddcaa.jpg\"\r\n\t\t\t name: \"test\"\r\n\t\t}\r\n\t\t partners: \"sayeed\"\r\n        code: \"jeams bond007\"\r\n\t\t termsAndConditions: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\"\r\n\t\t faq: [\r\n\t\t\t{question: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\"\r\n\t\t\tanswer: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\"}\r\n\t\t]\r\n\t\tsteps: [\r\n\t\t\t{\r\n\t\t\t\ttitle: \"This is campaign testing\"\r\n\t\t\t\t description: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\"\r\n\t\t\t}\r\n\t\t]\r\n\t\t startDate: \"2023-07-19\"\r\n\t\t endDate: \"2023-07-19\"\r\n         \r\n         \r\n\t\t \r\n\t}){\r\n\t\tmessage\r\n\t\tstatusCode\r\n\t\tresult{\r\n            id\r\n\t\t\tuid\r\n\t\t\tctaUrl\r\n            slug\r\n            code\r\n            createdAt\r\n            ctaText\r\n            description\r\n            isActive\r\n            displayName\r\n            partners\r\n\r\n\r\n\t\t}\r\n\t}\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://devapi.tryotel.com/graphql",
+					"protocol": "https",
+					"host": [
+						"devapi",
+						"tryotel",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCampaigns",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the data object\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('object');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify that the count field is a non-negative integer\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.data.getCampaigns.result.count).to.be.a('number');\r",
+							"    pm.expect(responseData.data.getCampaigns.result.count).to.be.at.least(0);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query{\r\n    getCampaigns(\r\n        pagination:{\r\n            limit: 10,\r\n            skip: 0\r\n        }\r\n    filter: {\r\n        \r\n        platformType:_B2C_,\r\n        serviceType:_FLIGHT_,\r\n        isActive:true,\r\n        \r\n       \r\n    }\r\n    sort: {\r\n        createdAt: -1\r\n    }\r\n       \r\n    )\r\n\r\n{\r\n     message\r\n    statusCode\r\n    result {\r\n        count\r\n        campaigns{\r\n            uid\r\n            id\r\n\r\n            ctaUrl\r\n            platformType\r\n            serviceType\r\n            name\r\n            displayImage{\r\n                type\r\n                name\r\n                url\r\n                signedUrl\r\n            }\r\n            displayName\r\n            description\r\n            image{\r\n                type\r\n                name\r\n                url\r\n                signedUrl\r\n            }\r\n            partners\r\n            termsAndConditions\r\n            code\r\n            ctaUrl\r\n            faq{\r\n                question\r\n                answer\r\n            }\r\n            steps{\r\n                title\r\n                description\r\n            }\r\n            isActive\r\n            inActiveNote\r\n            createdAt\r\n            updatedAt\r\n            startDate\r\n            endDate\r\n        }\r\n       \r\n    }\r\n}\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://devapi.tryotel.com/graphql",
+					"protocol": "https",
+					"host": [
+						"devapi",
+						"tryotel",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateCampaign",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the data object\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data).to.exist.and.to.be.an('object');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"SUCCESS\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJmbGlnaHQtbG9jYWwtYjJjLmNvbSIsImRhdGEiOnsiZW1haWwiOiJzdXBlcm9wZXJhdG9yQGZsaWdodGxvY2FsLmNvbSIsImRldmljZVV1aWQiOiJPUC1MSlJKUyIsInVzZXJJZCI6IjVmZjQ5NzkwNTZmOTFmNWE2N2M5YjM0MiIsInVzZXJVaWQiOiJPUC1MSlJKUyIsIm5hbWUiOiJmbGlnaHRsb2NhbCBiMmMiLCJjb21wYW55TmFtZSI6IkZMSUdIVC1MT0NBTCIsInVzZXJUeXBlIjoiX09QRVJBVE9SXyIsInVzZXJSb2xlIjoiX1NVUEVST1BFUkFUT1JfIn0sImlhdCI6MTY5MDcwMjAwMiwiZXhwIjoxNjk4NDc4MDAyfQ.YPKOM01tRswmGJfl3pEOK2ZJavnCw8qhsSnANgbSQfT8KBi1YcWt2hHlvb8p0lUoL6NRo0f6UIBBQK1NI08EBFUDNZrb2E6Hv9btB8UMehGd5nDBwRMRBimrgPD1yLOP7BmZI1cyotNkd4yhQsrmr_yPKnYwRsGnInzZYXZzAxcpz9MVI-PVLO3gomDLFv5cutKbR-kDMsWJ53SYX8XFTH88fouNv2vtnHpc2dknAknGOjPElkY2SygCvF7qu1UhRU_cmKMrRVrP7aCJ1vuDHpnc8Gu7gCukmO_PmslCEMUo1FKB-H34zY2iqIRF015E4TqejjewC8Dcnz0VFcsuLnnqpuSK9oyM6AJNBugzScsykaH2fdt9onEJkNC0tPyoVFzJkdHZbdAKVwBsdrKs4-R1Im-17a9klll9XJYHDzV7qKDlBkKtGu1UOpc26KztqaJAhmLlr-B0ci-hdi9S763wa_3kqg4B5xv9xmAdmXjSftZVc3_tBev3rq3M_RCFF3sCbXGmdUJTWpSTeK-gt33f5U1sAw8q8T2NOlzO9sIvZ7rA0RMiqSuskp3L_bnzGIYRDo8PgabMCYUrzpQsE8DTdVp0hSrjTbQOy6T8rfxu4NVx7sM-l0DqYwoQYiA1fk6xH7I8XRZc7A2D92RwKnWFg0IpDmMx2HjpoGS7xlk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation{\r\n    updateCampaign(\r\n        campaignUid:\"CP-YCFNB\"\r\n        campaign:{\r\n            name:\"updated recent added \",\r\n            displayName: \"updated campaign that recently added\",\r\n            description:\"updated campaign that recently added\",\r\n          image:{\r\n            type:\"updated campaign that recently added\",\r\n                url:\"\",\r\n                name:\"updated campaign that recently added\",\r\n                signedUrl:\"\"\r\n          },\r\n          displayImage:{\r\n            type:\"updated campaign that recently added\",\r\n                url:\"https://sgp1.digitaloceanspaces.com/gozayaan/media/uploaded_content/2023-07-05tvykCHLIpH.jpg\",\r\n                name:\"test campaign\",\r\n                signedUrl:\"\"\r\n          },\r\n          partners:\"updated campaign that recently added\",\r\n          termsAndConditions:\"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s\",\r\n          code:\"updated campaign that recently added\",\r\n          \t faq: [\r\n\t\t\t{question: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\"\r\n\t\t\tanswer: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\"}\r\n\t\t],\r\n          \tsteps: [\r\n\t\t\t{\r\n\t\t\t\ttitle: \"This is campaign testing\"\r\n\t\t\t\t description: \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,\"\r\n\t\t\t}\r\n\t\t],\r\n          startDate: \"2023-07-19\"\r\n\t\t endDate: \"2023-08-19\"\r\n         isActive: false\r\n        })\r\n\r\n        {\r\n\t\tmessage\r\n\t\tstatusCode\r\n\t\tresult{\r\n            id\r\n\t\t\tuid\r\n\t\t\tctaUrl\r\n            slug\r\n            code\r\n            createdAt\r\n            ctaText\r\n            description\r\n            isActive\r\n            displayName\r\n            partners\r\n            image{\r\n                type\r\n                name\r\n                url\r\n                signedUrl\r\n            }\r\n            displayImage{\r\n                type\r\n                url\r\n                signedUrl\r\n                name\r\n            }\r\n\r\n        }\r\n\t\t}\r\n        }\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://devapi.tryotel.com/graphql",
+					"protocol": "https",
+					"host": [
+						"devapi",
+						"tryotel",
+						"com"
+					],
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
